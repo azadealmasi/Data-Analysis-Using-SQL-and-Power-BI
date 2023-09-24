@@ -1,5 +1,5 @@
 -- Create a new database named "callcenterDB."
-CREATE DATABASE callcenterDB;
+CREATE DATABASE callcenterDB;	
 
 -- Switch to the "callcenterDB" database to work within it.
 USE callcenterDB;
@@ -117,6 +117,7 @@ SELECT state, COUNT(*) FROM calls GROUP BY 1 ORDER BY 2 DESC;
 -- Count calls by state and reason, ordered by state, reason, and count.
 SELECT state, reason, COUNT(*) FROM calls GROUP BY 1,2 ORDER BY 1,2,3 DESC;
 
+
 -- Count calls by state and sentiment, ordered by state and count in descending order.
 SELECT state, sentiment , COUNT(*) FROM calls GROUP BY 1,2 ORDER BY 1,3 DESC;
 
@@ -132,8 +133,13 @@ FROM calls
 GROUP BY call_timestamp
 ORDER BY max_call_duration DESC;
 
+SHOW VARIABLES LIKE 'secure_file_priv';
+SHOW VARIABLES LIKE 'datadir';
 
-
+SELECT * FROM calls
+INTO OUTFILE 'callcenter_prepared.csv'
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
 
 
 
